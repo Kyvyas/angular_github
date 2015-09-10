@@ -19,14 +19,15 @@ describe('factory: Search', function() {
   }];
 
   var httpBackend;
-  beforeEach(inject(function($httpBackend) {
-    httpBackend = $httpBackend
-    httpBackend
-      .when("GET", "https://api.github.com/search/users?access_token=" + accessToken + "&q=hello")
-      .respond({
-        items: items
-      });
-  }));
+    beforeEach(inject(function($httpBackend) {
+      httpBackend = $httpBackend
+      httpBackend
+        .expectGET("https://api.github.com/search/users?access_token=" + accessToken + "&q=hello")
+        .respond({
+          items: items
+        });
+    }));
+
 
   it('returns search results', function() {
     search.query('hello')
